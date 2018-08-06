@@ -31,7 +31,8 @@ two rows
 	
 
 def get_center_position(matrix):
-	"""Calculates center position of first eaten carrots."""
+	"""Calculates center position of first eaten carrots. Using possible_center dictionary and grad_vals 
+	if even rows and/or columns to find max."""
 
 	row = len(matrix)
 	column = len(matrix[0])
@@ -77,7 +78,7 @@ def get_center_position(matrix):
 	return [matrix, center, eaten]
  
 def get_adjacent_carrots(matrix, position):
-	"""Get the value of the squares adjacent to current position."""
+	"""Get the value of the squares adjacent to current position. Assign values in dictionary for carrots adjacent."""
   
 	if position[0] == len(matrix) - 1:
 		down = None
@@ -135,14 +136,14 @@ def update_position(position, direction):
 def hop_and_eat(matrix, position):
 	"""Move rabbit position, update eaten count and garden matrix."""
 
-	
+	#find adjacent carrots
 	adjacent = get_adjacent_carrots(matrix, position)
-
+	#find max of adjacent carrots
 	direction = max(adjacent, key = adjacent.get)
 	eaten = adjacent[direction]
-	
+	#update position of bunny
 	new_position = update_position(position, direction)
-
+	#update matrix after eating max carrots
 	matrix[new_position[0]][new_position[1]] = 0
 	return [matrix, new_position, eaten]
  
